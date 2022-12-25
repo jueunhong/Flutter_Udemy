@@ -1,18 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Feed extends StatelessWidget {
+class Feed extends StatefulWidget {
   const Feed({
     Key? key,
+    required this.imageUrl,
   }) : super(key: key);
+
+  final String imageUrl;
+
+  @override
+  State<Feed> createState() => _FeedState();
+}
+
+class _FeedState extends State<Feed> {
+  //좋아요 여부
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.asset(
-          'assets/feed.png',
+        Image.network(
+          widget.imageUrl,
           height: 400,
           width: double.infinity,
           fit: BoxFit.cover,
@@ -20,16 +31,20 @@ class Feed extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              },
               icon: Icon(
-                CupertinoIcons.paperplane,
-                color: Colors.black,
+                CupertinoIcons.heart,
+                color: isFavorite ? Colors.pink : Colors.black,
               ),
             ),
             IconButton(
               onPressed: () {},
               icon: Icon(
-                CupertinoIcons.heart,
+                CupertinoIcons.chat_bubble,
                 color: Colors.black,
               ),
             ),
@@ -47,7 +62,7 @@ class Feed extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8),
           child: Text(
-            '10 likes',
+            isFavorite ? '100 likes' : '99 likes',
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -57,13 +72,14 @@ class Feed extends StatelessWidget {
         //설명
         Padding(
           padding: EdgeInsets.all(8),
-          child: Text('DeliverBle designer Joon Young Kim made it.'),
+          child: Text(
+              'Cat is adorable animal. So cute even he/she does something mean.'),
         ),
         //날짜
         Padding(
           padding: EdgeInsets.all(8),
           child: Text(
-            'December 1224',
+            'December 12.24',
             style: TextStyle(
               color: Colors.grey,
             ),
