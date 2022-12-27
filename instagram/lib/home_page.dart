@@ -1,10 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/camera.dart';
 
 import 'feed.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool cameraOn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,12 @@ class HomePage extends StatelessWidget {
             CupertinoIcons.camera,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TakePictureScreen()));
+          },
         ),
         actions: [
           IconButton(
